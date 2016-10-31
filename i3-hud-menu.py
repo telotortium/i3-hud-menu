@@ -162,7 +162,11 @@ print('Window id is :', window_id)
 gtk_bus_name_cmd = subprocess.check_output(['xprop', '-id', window_id, '-notype', '_GTK_UNIQUE_BUS_NAME']).decode('utf-8')
 gtk_object_path_cmd = subprocess.check_output(['xprop', '-id', window_id, '-notype', '_GTK_MENUBAR_OBJECT_PATH']).decode('utf-8')
 
-if gtk_bus_name_cmd == '_GTK_UNIQUE_BUS_NAME:  not found.\n' or gtk_object_path_cmd == '_GTK_MENUBAR_OBJECT_PATH:  not found.\n':
+# print(gtk_bus_name_cmd)
+
+if (gtk_bus_name_cmd == '_GTK_UNIQUE_BUS_NAME:  not found.\n' or
+    gtk_object_path_cmd == '_GTK_MENUBAR_OBJECT_PATH:  not found.\n' or
+    gtk_bus_name_cmd == '_GTK_UNIQUE_BUS_NAME:  no such atom on any window.\n'):
   try_appmenu_interface(int(window_id, 16))
 else:
   try_gtk_interface(gtk_bus_name_cmd, gtk_object_path_cmd)
